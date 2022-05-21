@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:wan_android/compents/contrants_info.dart';
+import 'package:wan_android/compents/constant.dart';
 import 'package:wan_android/compents/state_page.dart';
 import 'package:wan_android/route/routes_page.dart';
+import 'package:wan_android/theme/app_color.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebPage extends StatefulWidget {
@@ -22,35 +23,33 @@ class _WebPageState extends State<WebPage> {
   @override
   void initState() {
     super.initState();
-    articleTitle = Get.arguments[ConstantInfo.ARTICLE_TITLE];
-    articleUrl = Get.arguments[ConstantInfo.ARTICLE_URL];
-    articleAuthor = Get.arguments[ConstantInfo.ARTICLE_AUTHOR]??"未知";
+    articleTitle = Get.arguments[Constant.ARTICLE_TITLE];
+    articleUrl = Get.arguments[Constant.ARTICLE_URL];
+    articleAuthor = Get.arguments[Constant.ARTICLE_AUTHOR]??"未知";
   }
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(primaryColor: Colors.white,iconTheme: IconThemeData(color: Colors.black)),
-      child: Scaffold(
-          appBar: _buildAppBar(),
-          body: Builder(builder: (context) {
-            return Stack(
-              children: [
-                _buildWebView(),
-                Container(
-                  child: _contentState(),
-                )
-              ],
-            );
-          })),
-    );
+    return Scaffold(
+        appBar: _buildAppBar(),
+        body: Builder(builder: (context) {
+          return Stack(
+            children: [
+              _buildWebView(),
+              Container(
+                child: _contentState(),
+              )
+            ],
+          );
+        }));
   }
 
   ///构建顶部bar
   Widget _buildAppBar(){
     return AppBar(
+      backgroundColor:Theme.of(context).scaffoldBackgroundColor,
       iconTheme: IconThemeData(
-        color: Colors.black
+        color: Get.isDarkMode?Colors.grey:Colors.black
       ),
       elevation: 0,
       titleSpacing: 0,

@@ -20,10 +20,11 @@ class KColors{
 // 输入框边框颜色
   static const Color kInputBorderColor = Color(0xFFECECEC);
   static const Color kIconLightColor = Colors.blue;
-  static const Color kIconDarkColor = Colors.greenAccent;
+  static const Color kIconDarkColor = Colors.white;
   static const Color kMessageBgLightColor = kInputBorderColor;
   static const Color kMessageBgDarkColor = Colors.grey;
-
+  static const Color line = Color(0xFFEEEEEE);
+  static const Color darkLine = Color(0xFF3A3C3D);
   static const Color kDialogCancelTextColor = Color(0xFFBDBDBD);
 }
 

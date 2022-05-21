@@ -1,10 +1,9 @@
 //加载等待提示框
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wan_android/theme/app_style.dart';
 import 'package:wan_android/theme/app_text.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoadingDialog extends StatelessWidget {
   final String message;
@@ -26,25 +25,29 @@ class LoadingDialog extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
-        child: Container(
-          width: 150,
-          height: 100,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.red,
+        child: Opacity(
+          opacity: 1,
+          child: Container(
+            width: 150.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.grey,
+                  ),
+                  width: 40,
+                  height: 40,
                 ),
-                width: 40,
-                height: 40,
-              ),
-              SizedBox(height: 10),
-              Text(message, style: kTextLoadingStyle)
-            ],
+                SizedBox(height: 10),
+                Text(message, style: kTextLoadingStyle)
+              ],
+            ),
           ),
         ),
       ),
@@ -88,13 +91,4 @@ Future showPrivacyDialog() async {
         return false;
       });
   return agree;
-}
-
-///提示用户登录弹窗
-showNeedLogin(){
-  Get.defaultDialog(
-    title: "提示",
-    content: Text("使用此功能需要登录"),
-    textConfirm: "去登录"
-  );
 }

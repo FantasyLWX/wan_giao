@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
@@ -28,10 +29,17 @@ class RecommendController extends BaseGetXControllerWithRefesh {
   @override
   void onInit() {
     super.onInit();
-    ever(Get.find<AppState>().loginState, (callBack) {
+    ever(appState.loginState, (callBack) {
       //每次登录状态发生变化，都要重新请求广场数据
       initData(true);
     });
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    //开始加载数据
+    initData(true);
   }
 
   ///获取Banner数据

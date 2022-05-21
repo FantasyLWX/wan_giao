@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sp_util/sp_util.dart';
 import 'package:wan_android/app/app_state.dart';
 import 'package:wan_android/bean/user_data.dart';
-import 'package:wan_android/compents/contrants_info.dart';
-import 'package:wan_android/controller/theme_controller.dart';
+import 'package:wan_android/compents/constant.dart';
 import 'package:wan_android/http/http_manager.dart';
 import 'package:wan_android/theme/app_theme.dart';
 
@@ -16,7 +16,6 @@ class Global {
   ///在项目启动前做一些初始化操作
   static Future init() async {
     var appState = Get.put<AppState>(AppState());
-    var themeController = Get.put<ThemeController>(ThemeController());
     //初始化持久工具
     await SpUtil.getInstance();
     //出丝滑Cookie管理
@@ -24,14 +23,22 @@ class Global {
     //初始化状态栏
     initStatusBar();
 
-    Map userMap = SpUtil.getObject(ConstantInfo.KEY_USER);
+    Map userMap = SpUtil.getObject(Constant.KEY_USER);
     if (userMap != null) {
       userProfile = User.fromJson(userMap);
       appState.setIsLogin(LoginState.LOGIN);
     }
     //初始化默认主题
-    themeController.setThemeData(SpUtil.getString(ThemeKey.KEY_APP_THEME,defValue: ThemeKey.LIGHT));
-
+    String themeKey = SpUtil.getString(Constant.KEY_APP_THEME);
+    // if(themeKey.isEmpty){
+    //   Get.changeTheme(lightTheme);
+    //   //Get.changeThemeMode(ThemeMode.system);
+    //   SpUtil.putString(Constant.KEY_APP_THEME, ThemeKey.SYSTEM);
+    // }else if(themeKey==ThemeKey.LIGHT){
+    //   Get.changeThemeMode(ThemeMode.light);
+    // }else{
+    //   Get.changeThemeMode(ThemeMode.dark);
+    // }
   }
 
   static initStatusBar(){
@@ -46,7 +53,7 @@ class Global {
   }
   /// 登录后保存用户信息
   static saveUserProfile(User user) {
-    SpUtil.putObject(ConstantInfo.KEY_USER, user);
+    SpUtil.putObject(Constant.KEY_USER, user);
     userProfile = user;
   }
 }
